@@ -1,7 +1,9 @@
 # SOEN422-F2021-CSLoader
+
 Instructions and useful files for the CSLoader
 
 ## Prerequisites
+
 - Install the [.NET SDK](https://dotnet.microsoft.com/download) for your platform.
 - Ensure `dotnet` is in your PATH environment variable.
 - Check `dotnet` version is above 5.0
@@ -14,7 +16,9 @@ Note: Running in a [docker container won't work](https://github.com/docker/for-w
 
 ## Building/running the loader
 
-From root of this repo:
+1. Change [line 121](https://github.com/jonZlotnik/SOEN422-F2021-CSLoader/blob/main/Program.cs#L121) in Program.cs to match the port to which your Arduino Nano is connected.
+
+2. From root of this repo:
 
 ```bash
 dotnet run
