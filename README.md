@@ -16,7 +16,7 @@ Note: Running in a [docker container won't work](https://github.com/docker/for-w
 
 ## Building/running the loader
 
-1. Change [line 121](https://github.com/jonZlotnik/SOEN422-F2021-CSLoader/blob/main/Program.cs#L121) in Program.cs to match the port to which your Arduino Nano is connected.
+1. Change [line 120](https://github.com/jonZlotnik/SOEN422-F2021-CSLoader/blob/main/Program.cs#L120) in Program.cs to match the port to which your Arduino Nano is connected.
 
 2. From root of this repo:
 
