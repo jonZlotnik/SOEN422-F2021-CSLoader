@@ -2,6 +2,7 @@
 if (args == null || args.Length != 2)
 {
     Console.Error.WriteLine("ERROR: Not enough arguments.");
+    Console.WriteLine("Usage: dotnet run <input.pic> <output.bin>");
     return 1;
 }
 
