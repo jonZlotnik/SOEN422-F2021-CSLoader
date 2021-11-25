@@ -1,9 +1,9 @@
 $filesToConvert = Get-ChildItem -Path ./TestPicToBin
 Set-Location -Path PicToBin
+dotnet build -o bin
 foreach ($picFile in $filesToConvert) {
     $inFile = $picFile.FullName
-    Write-Host "blah $inFile blah"
     $outFile = "$inFile" + ".bin"
-    dotnet run "$inFile" "$outFile"
+    ./bin/PicToBin.exe "$inFile" "$outFile"
 }
 Set-Location -Path ../
