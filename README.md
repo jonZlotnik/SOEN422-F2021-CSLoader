@@ -1,7 +1,9 @@
 # SOEN422-F2021-CSLoader
+
 Instructions and useful files for the CSLoader
 
 ## Prerequisites
+
 - Install the [.NET SDK](https://dotnet.microsoft.com/download) for your platform.
 - Ensure `dotnet` is in your PATH environment variable.
 - Check `dotnet` version is above 5.0
