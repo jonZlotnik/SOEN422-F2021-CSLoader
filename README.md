@@ -21,6 +21,5 @@ Note: Running in a [docker container won't work](https://github.com/docker/for-w
 2. From root of this repo:
 
 ```bash
-cd CSLoader
 dotnet run
 ```
