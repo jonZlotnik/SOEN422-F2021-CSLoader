@@ -52,11 +52,10 @@ public class SerialComPort {
 
     static bool       _continue;
     static bool       _run;
-    static SerialPort _serialPort;
+    static SerialPort _serialPort = new SerialPort();
 
     static byte[] buffer = new byte[12];
 
-#if LoadFromFile
     // Get the executable code into a formatted byte buffer ready to send with checksum.
     // Example: If a file.exe has a length    of 8  bytes [size(2)          + pgm(6)          ]
     //          then it needs a buffer length of 10 bytes [size|cksm|cmd(3) + pgm(6) + zero(1)] 
@@ -108,15 +107,11 @@ public class SerialComPort {
 //t        Console.WriteLine("\nsendDataPacket.Length = {0}.", sendDataPacketFile.Length);
 //t        Console.WriteLine("\nbuf.Length = {0}.", buf.Length);
 //t        Console.WriteLine("\nfile = {0} loaded.", exeFilename);
-#else
-    // Main thread to transmit packets to target (with hardcoded packets).
-    public static void Main() {
-#endif
+
         StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
         Thread readThread = new Thread(ReadByte);
 
         // Create a new SerialPort with the same Arduino Nano settings.
-        _serialPort = new SerialPort();
         _serialPort.PortName = "COM5";
         _serialPort.BaudRate = 9600; ;
         _serialPort.Parity = Parity.None;
@@ -138,13 +133,15 @@ public class SerialComPort {
         Console.WriteLine("Host Serial Loader v1.0 (Cm Virtual Machine on Arduino Nano)");
         Console.WriteLine("Usage: type 'p'(ping), 'd'(download), 'r'(run), and 'q' to quit.");
 
-        string cmd;
+        string? cmd;
 
         // Send cmd to target using a command prompt (for debugging purpose).
         Console.Write("$ ");
         while (_continue) {
             cmd = Console.ReadLine();
-
+            if (cmd == null) {
+                continue;
+            }
             if (stringComparer.Equals("q", cmd)) {
                 _continue = false;
             } else if (stringComparer.Equals("p", cmd)) { // ping
@@ -152,11 +149,7 @@ public class SerialComPort {
             } else if (stringComparer.Equals("s", cmd)) { // getStatus
                 _serialPort.Write(getStatusPacket, 0, 4);
             } else if (stringComparer.Equals("d", cmd)) { // download (sendData - small pgm)
-#if LoadFromFile
                 _serialPort.Write(sendDataPacketFile, 0, sendDataPacketFile.Length);
-#else
-                _serialPort.Write(sendDataPacket, 0, 10);
-#endif
             } else if (stringComparer.Equals("r", cmd)) { // run
                 _serialPort.Write(runPacket, 0, 4);
                 _run = true;
